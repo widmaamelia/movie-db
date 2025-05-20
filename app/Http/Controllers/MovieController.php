@@ -8,10 +8,15 @@ use Illuminate\Http\Request;
 
 class MovieController extends Controller
 {
+    public function homepage(){
+        $movies = Movie::latest()->paginate(6);
+        // dd($movies);
+        return view('homepage',compact('movies'));
+    }
     public function index()
     {
         $movies = Movie::with('category')->paginate(10);
-        return view('movies.index', ['movies' => $movies]);
+        return view('layouts.home', ['movies' => $movies]);
     }
 
     public function create()
@@ -68,5 +73,10 @@ class MovieController extends Controller
         $movie->delete();
 
         return redirect()->route('movie.index')->with('success', 'Movie deleted successfully.');
+    }
+
+    public function detail($id,$slug){
+        $movie = Movie::find($id);
+        return view('layouts.detailmovie', compact('movie'));
     }
 }

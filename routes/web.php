@@ -13,3 +13,5 @@ Route::get('/home', function () {
 
 Route::resource('movie', MovieController::class);
 Route::resource('category', CategoryController::class);
+
+Route::get('detailmovie/{id}/{slug}',[MovieController::class,'detail']);
