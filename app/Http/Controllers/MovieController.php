@@ -65,7 +65,7 @@ public function store(Request $request)
         ]
 
     );
-    return redirect('/')->with('sucsess','Movie saved successfully');
+    return redirect('/movie')->with('sucsess','Movie saved successfully');
 
 }
 
