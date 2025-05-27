@@ -15,3 +15,4 @@ Route::resource('movie', MovieController::class);
 Route::resource('category', CategoryController::class);
 
 Route::get('detailmovie/{id}/{slug}',[MovieController::class,'detail']);
+Route::get('createMovie',[MovieController::class,'create'])->name('createMovie');

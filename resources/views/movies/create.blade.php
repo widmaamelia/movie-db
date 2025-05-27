@@ -3,6 +3,7 @@
 @section('content')
 <div class="container">
     <h1 class="my-4">Tambah Film Baru</h1>
+    <form action="{{ route('movie.store') }}" method="POST" enctype="multipart/form-data">
 
     @if($errors->any())
         <div class="alert alert-danger">
@@ -22,10 +23,10 @@
             <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" required>
         </div>
 
-        <div class="mb-3">
+        {{-- <div class="mb-3">
             <label for="slug" class="form-label">Slug</label>
             <input type="text" name="slug" id="slug" class="form-control" value="{{ old('slug') }}" required>
-        </div>
+        </div> --}}
 
         <div class="mb-3">
             <label for="category_id" class="form-label">Kategori</label>
@@ -39,7 +40,7 @@
 
             </select>
         </div>
-        <div class="mb-3">
+        {{-- <div class="mb-3">
             <label for="cover_image" class="form-label">Cover</label>
             <select name="cover_image" id="cover_image" class="form-select" required>
                 <option value="">-- Pilih Kategori --</option>
@@ -50,8 +51,8 @@
                 @endforeach
 
             </select>
-        </div>
-        
+        </div> --}}
+
 
         <div class="mb-3">
             <label for="year" class="form-label">Tahun</label>
@@ -69,9 +70,9 @@
         </div>
 
         <div class="mb-3">
-            <label for="cover_image" class="form-label">URL Gambar Cover</label>
-            <input type="text" name="cover_image" id="cover_image" class="form-control" value="{{ old('cover_image') }}">
-        </div>
+    <label for="cover_image" class="form-label">Upload Gambar Cover</label>
+    <input type="file" name="cover_image" id="cover_image" class="form-control">
+</div>
 
         <button type="submit" class="btn btn-success">Simpan</button>
         <a href="{{ route('movie.index') }}" class="btn btn-secondary">Kembali</a>
