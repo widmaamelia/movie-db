@@ -1,36 +1,51 @@
+@extends('layouts.header')
 @extends('layouts.main')
+
 @section('title', 'Data Home')
-@section('navHome','active')
+@section('navHome', 'active')
 
 @section('content')
 
-<h1 class="mt-5">Sticky footer with fixed navbar</h1>
+@if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }} — Selamat datang, {{ Auth::user()->name }}!
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+<h1 class="mb-4 mt-4">Latest Movies</h1>
+
 <div class="row">
     @foreach ($movies as $movie)
-
-    <div class="col-lg-6">
-        <div class="card mb-3" style="max-width: 540px;">
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img src="{{ asset('storage/' . $movie->cover_image) }}" class="img-fluid rounded-start" alt="{{ $movie->title }}">
-
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title">{{ $movie->title}}</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        {{-- <p class="card-text">Synopsis</p> --}}
-        {{-- <p class="card-text">{{ $movie->year }}</p>
-        <p class="card-text">Year : {{ $movie->year }}</p>
-        <p class="card-text">Category : {{ $movie->category_id }}</p>
-        <p class="card-text">Actors : {{ $movie->actors }}</p>
-        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p> --}}
-        <a href="/detailmovie/{{ $movie->id }}/{{ $movie->slug}}" class="btn btn-success">Read More</a>
-      </div>
-    </div>
-  </div>
-</div>
-    </div>
+        <div class="col-md-6 mb-4"> {{-- 2 kolom per baris --}}
+            <div class="card h-100">
+                <div class="row g-0">
+                    <div class="col-md-5">
+                        @if ($movie->cover_image && file_exists(storage_path('app/public/' . $movie->cover_image)))
+                            <img src="{{ asset('storage/' . $movie->cover_image) }}" class="img-fluid rounded-start" alt="{{ $movie->title }}">
+                        @elseif($movie->cover_image)
+                            <img src="{{ $movie->cover_image }}" class="img-fluid rounded-start" alt="{{ $movie->title }}">
+                        @else
+                            <img src="{{ asset('images/placeholder.png') }}" class="img-fluid rounded-start" alt="No Image">
+                        @endif
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ $movie->title }}</h5>
+                            <p class="card-text">{{ \Illuminate\Support\Str::words($movie->synopsis, 20, '...') }}</p>
+                            <p class="card-text">
+                                <small class="text-muted">Year: {{ $movie->year }} | Category: {{ $movie->category->name ?? 'Unknown' }}</small>
+                            </p>
+                            <div class="mt-auto text-end">
+                                <a href="{{ route('detail', ['id' => $movie->id, 'slug' => $movie->slug]) }}" class="btn btn-success">
+                                    Read More
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     @endforeach
 </div>
 

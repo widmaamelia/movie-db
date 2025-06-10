@@ -32,7 +32,8 @@
 
                             <td class="text-center">{{ $movie->id }}</td>
                             <td class="text-center">
-                                <img src="{{ $movie->cover_image }}" alt="Cover" class="img-thumbnail"
+                                <img src="{{ asset('storage/' . $movie->cover_image) }}" alt="Cover" class="img-thumbnail"
+
                                     style="width: 100px; height: 120px; object-fit: cover;">
                             </td>
                             <td>{{ $movie->title }}</td>
@@ -49,10 +50,12 @@
     <form action="{{ route('movie.destroy', $movie->id) }}" method="POST" style="display:inline;">
         @csrf
         @method('DELETE')
+         @can('delete')
         <button type="submit" class="btn btn-danger btn-sm"
             onclick="return confirm('Are you sure you want to delete this movie?')">
             <i class="bi bi-trash-fill"></i> Delete
         </button>
+        @endcan
     </form>
 </td>
 

@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Movie;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Movie;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,10 +13,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(CategorySeeder::class);
+        // Panggil seeder kategori jika ada
+        // $this->call(CategorySeeder::class);
 
-          Movie::factory(10)->create();
+        // Buat 3 user dummy
+        User::factory(3)->create();
 
-
+        // Buat 10 movie dummy
+        // Movie::factory(10)->create();
     }
 }
