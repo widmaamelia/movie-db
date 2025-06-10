@@ -21,13 +21,12 @@
             <div class="card h-100">
                 <div class="row g-0">
                     <div class="col-md-5">
-                        @if ($movie->cover_image && file_exists(storage_path('app/public/' . $movie->cover_image)))
-                            <img src="{{ asset('storage/' . $movie->cover_image) }}" class="img-fluid rounded-start" alt="{{ $movie->title }}">
-                        @elseif($movie->cover_image)
-                            <img src="{{ $movie->cover_image }}" class="img-fluid rounded-start" alt="{{ $movie->title }}">
-                        @else
-                            <img src="{{ asset('images/placeholder.png') }}" class="img-fluid rounded-start" alt="No Image">
-                        @endif
+                        @if ($movie->cover_image)
+    <img src="{{ asset('storage/' . $movie->cover_image) }}" class="img-fluid rounded-start" alt="{{ $movie->title }}">
+@else
+    <img src="{{ asset('images/placeholder.png') }}" class="img-fluid rounded-start" alt="No Image">
+@endif
+
                     </div>
                     <div class="col-md-7">
                         <div class="card-body d-flex flex-column">
